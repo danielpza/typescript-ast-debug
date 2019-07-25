@@ -9,12 +9,28 @@ export function main(file: string) {
 
   const sourceFile = program.getSourceFile(file)!;
 
-  return getJSON(sourceFile);
+  const result = getJSON(sourceFile);
+  return result;
 
   function getJSON(node: ts.Node): any {
     const kind = ts.SyntaxKind[node.kind];
     const text = node.getText();
-    const children = node.getChildren().map(getJSON);
-    return { kind, text, children };
+    const extraProps = {} as any;
+    const childrenNode = node.getChildren();
+    const children = childrenNode.map(getJSON);
+    // try to get children keys
+    Object.entries(node).forEach(([key, value]) => {
+      childrenNode.forEach((child, index) => {
+        if (child === value) {
+          extraProps[key] = children[index];
+        }
+      });
+    });
+    return {
+      kind,
+      text,
+      ...extraProps,
+      ...(children.length ? { children } : {})
+    };
   }
 }
