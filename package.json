@@ -1,0 +1,24 @@
+{
+  "name": "typescript-ast-debug",
+  "version": "0.1.0",
+  "description": "Outputs ast of typescript source file",
+  "files": [
+    "lib"
+  ],
+  "main": "lib/index.js",
+  "bin": {
+    "tsast": "lib/cli.js"
+  },
+  "scripts": {
+    "prepare": "tsc"
+  },
+  "keywords": [],
+  "author": "Daniel Perez Alvarez <danielpza@protonmail.com> (https://github.com/danielpza)",
+  "license": "MIT",
+  "dependencies": {
+    "typescript": "^3.5.3"
+  },
+  "devDependencies": {
+    "@types/node": "^12.6.8"
+  }
+}
